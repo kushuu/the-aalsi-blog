@@ -8,13 +8,12 @@ def index(request):
     print(len(articles))
     ctx = {
         'articles' : articles,
-        'title' : "All Posts"
+        'title' : "Home"
     }
     return render(request, 'articles.html', context=ctx)
 
 def contact(request):
     if request.method == 'POST':
-        print("before save\n")
         phone = request.POST.get('phone')
         email = request.POST.get('email')
         message = request.POST.get('message')
@@ -69,7 +68,6 @@ def trivia(request):
     for art in articles:
         if "TRIVIA" in art.tags.split(','):
             cp_articles.append(art)
-    print(cp_articles)
     ctx = {
         'articles' : cp_articles,
         'title' : "Trivia :)"
@@ -78,9 +76,16 @@ def trivia(request):
 
 def all_articles(request):
     articles = Articles.objects.all()
-    print(len(articles))
     ctx = {
         'articles' : articles,
         'title' : "All Posts"
     }
     return render(request, 'articles.html', context=ctx)
+
+def article(request, title):
+    article = Articles.objects.get(title = title)
+    context = {
+        'title' : title,
+        'article' : article
+    }
+    return render(request, 'article.html', context)

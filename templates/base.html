@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="/static/styles.css">
   <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
   <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel = "icon" href = "/static/img/logo.png" type = "image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
 </head>
 
@@ -18,7 +19,7 @@
         <h2>T.A.B.</h2>
       </a>
       <ul>
-        <li><a href="/"><i class="fas fa-home"></i>Home</a></li>
+        <li><a href="/"><i class="fas fa-home" style="z-index:1"></i>Home</a></li>
         <li><a href={% url 'cp' %}><i class="fas fa-book-reader"></i>Competitive Programming</a></li>
         <li><a href={% url 'cyber' %}><i class="fas fa-book-reader"></i>Cyber Security</a></li>
         <li><a href={% url 'ml' %}><i class="fas fa-book-reader"></i>Machine Learning</a></li>
@@ -28,17 +29,17 @@
       </ul>
       <li id="port"><a href="https://kushuuu.netlify.app/" target="_blank">Check me out!</a></li>
       <div class="gif">
-        <img class="gif" src="https://media.giphy.com/media/cJjrczzpjWIwg/giphy.gif">
+        <img class="gif" src="/static/img/pro.gif">
       </div>
 
     </div>
     <div class="main_content">
-      <div class="header">The Aalsi Blog</div>
-      <div class="info">
-        {% block content %}
-        
-        {% endblock content %}
-      </div>
+      <div class="header" style = "position : fixed; z-index : -1">The Aalsi Blog</div>
+        <div class="info" style = "position : relative;">
+          {% block content %}
+          
+          {% endblock content %}
+        </div>
     </div>
   </div>
   <div>

@@ -10,4 +10,5 @@ urlpatterns = [
     path('trivia', views.trivia, name = "trivia"),
     path('articles', views.all_articles, name = "all"),
     path('contact', views.contact, name = "contact"),
+    path('article/<str:title>', views.article, name = "article"),
 ]

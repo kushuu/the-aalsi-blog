@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %} {{title}} {% endblock title %}
+
+{% block content %}
+    <h1>{{article.title}}</h1>
+    <!-- <p>{{article.title}}</p> -->
+    <p>{{article.author}}</p>
+    <img src={{article.img.url}} alt="">
+    <p>{{article.article_body | safe}}</p>
+{% endblock content %}
