@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{title}}
+{% endblock title %}
+
+{% block content %}
+{% for art in articles %}
+<p>
+{{art.title}}
+</p>
+{% endfor %}
+{% endblock content %}
