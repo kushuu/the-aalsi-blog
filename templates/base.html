@@ -1,49 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<head>
-  <meta charset="UTF-8">
-  <title>{% block title %}{% endblock title %}</title>
-  <link rel="stylesheet" href="/static/styles.css">
-  <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link rel = "icon" href = "/static/img/logo.png" type = "image/x-icon">
-  <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
-</head>
+        <!-- ===== CSS ===== -->
+        <link rel="stylesheet" href="/static/styles.css">
 
-<body>
+        <title>{% block title %}{% endblock title %}</title>
+        <link rel = "icon" href = "/static/img/logo.png" type = "image/x-icon">
+    </head>
+    <body>
+        <header class="header">
+            <a href="#" class="header__logo">The Aalsi Blog</a>
 
-  <div class="wrapper">
-    <div class="sidebar">
-      <a href="/">
-        <h2>T.A.B.</h2>
-      </a>
-      <ul>
-        <li><a href="/"><i class="fas fa-home"></i>Home</a></li>
-        <li><a href={% url 'cp' %}><i class="fas fa-book-reader"></i>Competitive Programming</a></li>
-        <li><a href={% url 'cyber' %}><i class="fas fa-book-reader"></i>Cyber Security</a></li>
-        <li><a href={% url 'ml' %}><i class="fas fa-book-reader"></i>Machine Learning</a></li>
-        <li><a href={% url 'trivia' %}><i class="fas fa-book-reader"></i>Trivia/Philosophy</a></li>
-        <li><a href={% url 'all' %}><i class="fas fa-book-reader"></i>All Tags</a></li>
-        <li><a href= {% url 'contact' %} target="_blank"><i class="fas fa-address-book"></i>Contact</a></li>
-      </ul>
-      <li id="port"><a href="https://kushuuu.netlify.app/" target="_blank">Check me out!</a></li>
-      <div class="gif">
-        <img class="gif" src="/static/img/pro.gif">
-      </div>
+            <ion-icon name="menu-outline" class="header__toggle" id="nav-toggle"></ion-icon>
 
-    </div>
-    <div class="main_content">
-      <div class="header">The Aalsi Blog</div>
-        <div class="info">
-          {% block content %}
-          
-          {% endblock content %}
+            <nav class="nav" id="nav-menu">
+                <div class="nav__content bd-grid">
+
+                    <ion-icon name="close-outline" class="nav__close" id="nav-close"></ion-icon>
+    
+                    <div class="nav__perfil">
+                        <div class="nav__img">
+                            <img src="/static/img/perfil.png" alt="">
+                        </div>
+                        
+                        <div>
+                            <a href="/" class="nav__name">The Aalsi Blog</a>
+                            <span class="nav__profesion">Kushagra's Blog</span>
+                        </div>
+                    </div>
+    
+                    <div class="nav__menu">
+                        <ul class="nav__list">
+                            <li class="nav__item"><a href="/" class="nav__link active">Home</a></li>
+                            <li class="nav__item"><a href= {% url 'cp' %} class="nav__link">CP</a></li>
+                            <li class="nav__item"><a href= {% url 'ml' %} class="nav__link">ML</a></li>
+                            <li class="nav__item"><a href= {% url 'cyber' %} class="nav__link">Cyber Sec</a></li>
+                            <li class="nav__item"><a href= {% url 'trivia' %} class="nav__link">Trivia</a></li>
+                            <li class="nav__item"><a href= {% url 'all' %} class="nav__link">All Tags</a></li>
+                            <li class="nav__item"><a href= {% url 'contact' %} class="nav__link">Contact</a></li>
+                        </ul>
+                    </div>
+    
+                    <div class="nav__social">
+                        <a href="https://www.linkedin.com/in/kushagra-s-b89338140/" class="nav__social-icon"><ion-icon name="logo-linkedin"></ion-icon></a>
+                        <a href="https://github.com/kushuu/" class="nav__social-icon"><ion-icon name="logo-github"></ion-icon></a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+
+
+        <div class="main_body">
+            {% block content %}
+            
+            {% endblock content %}
         </div>
-    </div>
-  </div>
-  <div>
-  </div>
-</body>
 
+
+
+        <!-- ===== IONICONS ===== -->
+        <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+
+        <!--===== MAIN JS =====-->
+        <script src="/static/main.js"></script>
+    </body>
 </html>
