@@ -5,7 +5,6 @@ from datetime import datetime
 # Create your views here.
 def index(request):
     articles = Articles.objects.all()
-    print(len(articles))
     ctx = {
         'articles' : articles,
         'title' : "Home"

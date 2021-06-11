@@ -18,5 +18,53 @@
         </a> <br/>
     </div>
     {% endfor %}
+    {% for art in articles %}
+    <div class="column">
+        <a href= {% url 'article' art.title %}>
+                <div class="card">
+                <p>
+                    {{art.title}}
+                    <img src={{art.img.url}} alt="">
+                </p>
+            </div>
+        </a> <br/>
+    </div>
+    {% endfor %}
+    {% for art in articles %}
+    <div class="column">
+        <a href= {% url 'article' art.title %}>
+                <div class="card">
+                <p>
+                    {{art.title}}
+                    <img src={{art.img.url}} alt="">
+                </p>
+            </div>
+        </a> <br/>
+    </div>
+    {% endfor %}
+    {% for art in articles %}
+    <div class="column">
+        <a href= {% url 'article' art.title %}>
+                <div class="card">
+                <p>
+                    {{art.title}}
+                    <img src={{art.img.url}} alt="">
+                </p>
+            </div>
+        </a> <br/>
+    </div>
+    {% endfor %}
+    {% for art in articles %}
+    <div class="column">
+        <a href= {% url 'article' art.title %}>
+                <div class="card">
+                <p>
+                    {{art.title}}
+                    <img src={{art.img.url}} alt="">
+                </p>
+            </div>
+        </a> <br/>
+    </div>
+    {% endfor %}
 </div>
 {% endblock content %}
