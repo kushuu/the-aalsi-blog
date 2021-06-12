@@ -21,6 +21,7 @@ class Articles(models.Model):
     author = models.CharField(max_length=100)
     tags = models.CharField(max_length=500, default="")
     article_body = RichTextField(blank = True, null = True)
+    likes = models.IntegerField(default=0, blank=True)
 
     def __str__(self):
         return self.title

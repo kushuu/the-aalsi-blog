@@ -5,18 +5,20 @@
 {% endblock title %}
 
 {% block content %}
-<div class="row">
+<ul class="cards">
     {% for art in articles %}
-    <div class="column">
-        <a href= {% url 'article' art.title %}>
+        <li class="cards__item">
+            <a href={% url 'article' art.title %}>
                 <div class="card">
-                <p class="card_title">
-                    {{art.title}}
-                </p>
-                    <img class = "art_img" src={{art.img.url}} alt="">
-            </div>
-        </a> <br/>
-    </div>
+                    <img class="card__image" src={{art.img.url}}>
+                    <div class="card__content">
+                        <p class="card_title">
+                            {{art.title}}
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </li>
     {% endfor %}
-</div>
+</ul>
 {% endblock content %}

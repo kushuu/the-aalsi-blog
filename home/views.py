@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from home.models import Contact, Articles
 from datetime import datetime
+import json
 
 # Create your views here.
 def index(request):
@@ -88,3 +89,7 @@ def article(request, title):
         'article' : article
     }
     return render(request, 'article.html', context)
+
+def update_like(request):
+    data = json.loads(request.body)
+    print(data)

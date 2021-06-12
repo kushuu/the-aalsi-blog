@@ -11,4 +11,5 @@ urlpatterns = [
     path('articles', views.all_articles, name = "all"),
     path('contact', views.contact, name = "contact"),
     path('article/<str:title>', views.article, name = "article"),
+    path('update_like', views.update_like, name = "update_like"),
 ]
