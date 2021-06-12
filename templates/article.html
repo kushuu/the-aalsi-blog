@@ -1,4 +1,4 @@
-{% extends 'article_base.html' %}
+{% extends 'base.html' %}
 
 {% block title %} {{title}} {% endblock title %}
 
@@ -9,6 +9,7 @@
     <div class="author">
         <p>-{{article.author}}</p>
     </div>
-    <img src={{article.img.url}} alt="">
-    <p>{{article.article_body | safe}}</p>
+    <img class = "img_art" src={{article.img.url}} alt="">
+    <p>{{article.article_body | safe}}</p><br><br>
+    <p>Liked it? Drop a like maybe?</p>
 {% endblock content %}
