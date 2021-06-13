@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from home.models import Contact, Articles
 from datetime import datetime
 import json
@@ -92,4 +92,5 @@ def article(request, title):
 
 def update_like(request):
     data = json.loads(request.body)
-    print(data)
+    # print(data)
+    return JsonResponse("Item added :)", safe=False)

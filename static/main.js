@@ -1,7 +1,7 @@
 /*===== MENU SHOW Y HIDDEN =====*/ 
 const navMenu = document.getElementById('nav-menu'),
-      toggleMenu = document.getElementById('nav-toggle'),
-      closeMenu = document.getElementById('nav-close')
+toggleMenu = document.getElementById('nav-toggle'),
+closeMenu = document.getElementById('nav-close')
 
 /*SHOW*/ 
 toggleMenu.addEventListener('click', ()=>{
@@ -52,11 +52,11 @@ var csrftoken = getToken(
 var updateBtns = document.getElementsByClassName('update-likes')
 
 for (i = 0; i < updateBtns.length; i++) {
-	updateBtns[i].addEventListener('click', function(){
+	    updateBtns[i].addEventListener('click', function(){
 		var articleId = this.dataset.id
-    var action = this.dataset.action
-		console.log('articleId:', articleId, "action:", action)
-    updateLike(articleId, action)
+        var action = this.dataset.action
+		console.log('articleId:', articleId, "action:", action, csrftoken)
+        updateLike(articleId, action)
 	})
 }
 
@@ -75,8 +75,8 @@ function updateLike(articleId, action) {
         console.log(response)
         return response.json()
     })
-    .then((data) => {
-        // console.log('data', data)
-        location.reload()
-    })
+    // .then((data) => {
+    //     // console.log('data', data)
+    //     location.reload()
+    // })
 }
