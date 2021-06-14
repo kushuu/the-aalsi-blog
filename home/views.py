@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse
+from django.http import JsonResponse
 from home.models import Contact, Articles
 from datetime import datetime
 import json
@@ -93,4 +94,15 @@ def article(request, title):
 def update_like(request):
     data = json.loads(request.body)
     # print(data)
+    articleId = data['articleId']
+    action = data['action']
+    article, created = Articles.objects.get_or_create(id = articleId)
+    print(article.title)
+    if action == "like":
+        print("here in like")
+        article.likes += 1
+    else:
+        article.likes -= 1
+        article.likes = max(0, article.likes)
+    article.save()
     return JsonResponse("Item added :)", safe=False)

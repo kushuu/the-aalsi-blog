@@ -75,8 +75,8 @@ function updateLike(articleId, action) {
         console.log(response)
         return response.json()
     })
-    // .then((data) => {
-    //     // console.log('data', data)
-    //     location.reload()
-    // })
+    .then((data) => {
+        // console.log('data', data)
+        location.reload()
+    })
 }
