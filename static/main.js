@@ -55,7 +55,7 @@ for (i = 0; i < updateBtns.length; i++) {
 	    updateBtns[i].addEventListener('click', function(){
 		var articleId = this.dataset.id
         var action = this.dataset.action
-		console.log('articleId:', articleId, "action:", action, csrftoken)
+		// console.log('articleId:', articleId, "action:", action, csrftoken)
         updateLike(articleId, action)
 	})
 }
@@ -72,7 +72,7 @@ function updateLike(articleId, action) {
       }
     )
     .then((response) => {
-        console.log(response)
+    //     console.log(response)
         return response.json()
     })
     .then((data) => {
