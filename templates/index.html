@@ -6,16 +6,30 @@
 
 {% block content %}
 
-<h2><center>Some random bs about why I made this blog.</center></h2>
+
+<h2>What is this blog about?</h2>
+<p><strong>Literally any curious soul out there who wants to learn :)</strong></p>
+<p>This blog is divided into several tags like Competitive Programming, Machine Learning, Cyber Security and a general tag for all those articles which don't fall under those categories.</p>
+<p>All the tags are self exaplanatory except the last one. That segment would be having articles on trivial topics and some might even be on philosophy.</p>
+<p>This blog will be consisting of articles explaining new projects/concepts that I work on/learn during my learing jouney.</p>
+<h2>Why this blog?</h2>
+<p><strong>What knowledge is good if not shared with others?</strong></p>
+<p>Through the years of learning and practising coding related subjects, one thing that I've realised is that making projects is a good way to get actual knowledge, but to retain it for a longer time, you need to document it, mannerly. Wrtiting articles is one of the proven efficient ways to achieve this.</p>
+<p>Penning something down makes you go through the process thoroughly, once again. Another very important aspect of writing articles (maintaining a blog) is that you have a beautiful proof of you knowing that concept.</p>
+
+
+<br><br><br>
 
 <div class="container">
     <h3>These are some of the recent articles that I've written, give them a read? :)</h3>
     <div class="row">
         {% for art in articles %}
-        <div class="card-row">
-            <img src= {{art.img.url}}>
-            <p class="card-text">{{art.title}}</p>
-        </div>
+        <a class="card-row" href= {% url 'article' art.title %}>
+            <div>
+                <img src= {{art.img.url}}>
+                <p class="card-text">{{art.title}}</p>
+            </div>
+        </a>
         {% endfor %}
     </div>
 </div>

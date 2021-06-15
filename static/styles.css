@@ -491,3 +491,11 @@ footer {
 .card-text {
   font-size: 85%;
 }
+
+.container {
+  border: gray;
+  border-style:solid;
+  padding: 3%;
+  border-width: 0.15rem;
+  border-radius: 1%;
+}
