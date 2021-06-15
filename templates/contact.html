@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact</title>
+    <link rel = "icon" href = "/static/img/logo.png" type = "image/x-icon">
     <link rel="stylesheet" href="/static/contact_style.css" />
     <script
       src="https://kit.fontawesome.com/64d58efce2.js"
@@ -29,7 +30,7 @@
             </div>
             <div class="information">
               <img src="/static/img/email.png" class="icon" alt="" />
-              <p>untitled</p>
+              <a href="mailto:sonikushu007@gmail.com"><p>sonikushu007@gmail.com</p></a>
             </div>
             <div class="information">
               <img src="/static/img/phone.png" class="icon" alt="" />
@@ -52,7 +53,7 @@
           <span class="circle two"></span>
           
           <form action="contact.html" method="POST" autocomplete="off">
-            <h3 class="title">Contact us</h3>
+            <h3 class="title">Contact me</h3>
             {% csrf_token %}
             <div class="input-container">
               <input type="email" name="email" class="input" />

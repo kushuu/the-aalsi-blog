@@ -1,14 +1,23 @@
 {% extends 'base.html' %}
 
 {% block title %}
-T.A.B.
+{{title}}
 {% endblock title %}
 
 {% block content %}
-{% for art in articles %}
-<p>
-{{art.title}}
-</p>
-{% endfor %}
-</p>
+
+<h2><center>Some random bs about why I made this blog.</center></h2>
+
+<div class="container">
+    <h3>These are some of the recent articles that I've written, give them a read? :)</h3>
+    <div class="row">
+        {% for art in articles %}
+        <div class="card-row">
+            <img src= {{art.img.url}}>
+            <p class="card-text">{{art.title}}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock content %}

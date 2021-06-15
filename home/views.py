@@ -6,12 +6,12 @@ import json
 
 # Create your views here.
 def index(request):
-    articles = Articles.objects.all()
+    articles = Articles.objects.all()[:5]
     ctx = {
         'articles' : articles,
         'title' : "Home"
     }
-    return render(request, 'articles.html', context=ctx)
+    return render(request, 'index.html', context=ctx)
 
 def contact(request):
     if request.method == 'POST':
@@ -97,9 +97,7 @@ def update_like(request):
     articleId = data['articleId']
     action = data['action']
     article, created = Articles.objects.get_or_create(id = articleId)
-    print(article.title)
     if action == "like":
-        print("here in like")
         article.likes += 1
     else:
         article.likes -= 1
