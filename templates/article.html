@@ -7,7 +7,8 @@
         <h1>{{article.title}}</h1>
     </div>
     <div class="author">
-        <p>-{{article.author}}</p>
+        <p>-{{article.author}} ( Published on : {{article.date_added}} )</p>
+        {% comment %} <p></p> {% endcomment %}
     </div>
     <img class = "img_art" src={{article.img.url}} alt="">
     <p>{{article.article_body | safe}}</p><br><br>

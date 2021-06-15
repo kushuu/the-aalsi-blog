@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import datetime
 from ckeditor.fields import RichTextField
-
+import django
 
 from django.db.models.fields import BLANK_CHOICE_DASH
 
@@ -22,6 +22,7 @@ class Articles(models.Model):
     tags = models.CharField(max_length=500, default="")
     article_body = RichTextField(blank = True, null = True)
     likes = models.IntegerField(default=0, blank=True)
+    date_added = models.DateField(default=django.utils.timezone.now)
 
     def __str__(self):
         return self.title

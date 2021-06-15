@@ -499,3 +499,9 @@ footer {
   border-width: 0.15rem;
   border-radius: 1%;
 }
+
+.card_date {
+  margin-bottom: -10px;
+  text-align: right;
+  font-size: 12px;
+}
