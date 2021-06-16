@@ -194,9 +194,9 @@ img {
 }
 
 /*Active menu*/
-.active {
+/* .active {
   color: var(--first-color);
-}
+} */
 
 /*===== MEDIA QUERIES =====*/
 @media screen and (min-width: 768px) {
