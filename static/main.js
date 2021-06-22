@@ -80,3 +80,18 @@ function updateLike(articleId, action) {
         location.reload()
     })
 }
+
+const preloader = document.querySelector(".preloader"); 
+
+console.log(preloader)
+
+// const preloader = document.querySelector(".preloader");
+const preloaderDuration = 1500;
+
+const hidePreloader = () => {
+    setTimeout(() => {
+        preloader.classList.add("not-visible");
+    }, preloaderDuration);
+}
+
+window.addEventListener("load", hidePreloader);

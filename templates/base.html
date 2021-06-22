@@ -11,6 +11,19 @@
         <link rel = "icon" href = "/static/img/logo.png" type = "image/x-icon">
     </head>
     <body>
+        <!-- <div class="preloader">
+            <div class="backdrop"></div>
+    
+            <div class="dots-container">
+                <div class="dot red"></div>
+                <div class="dot green"></div>
+                <div class="dot yellow"></div>
+            </div>
+    
+            <div class="preloader-text">
+                Loading
+            </div>
+        </div> -->
         <header class="header">
             <a href="#" class="header__logo">The Aalsi Blog</a>
 
@@ -56,9 +69,20 @@
 
 
         <div class="main_body">
-            {% block content %}
-            
-            {% endblock content %}
+            <div class="preloader">
+                <div class="wrap">
+                <div class="loading">
+                    <div class="bounceball"></div>
+                    <div class="text">NOW LOADING</div>
+                </div>
+                </div>
+            </div> 
+
+            <div id="main-box">
+                {% block content %}
+                
+                {% endblock content %}
+            </div>
         </div>
         <br><br><br>
         <hr style="width:50%;text-align:left;margin:auto">
