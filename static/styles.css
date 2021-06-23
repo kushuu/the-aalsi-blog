@@ -116,8 +116,8 @@ img {
 .nav__content {
   height: 100%;
   -ms-grid-rows: max-content 1fr max-content;
-      grid-template-rows: -webkit-max-content 1fr -webkit-max-content;
-      grid-template-rows: max-content 1fr max-content;
+  grid-template-rows: -webkit-max-content 1fr -webkit-max-content;
+  grid-template-rows: max-content 1fr max-content;
   row-gap: 2rem;
 }
 
