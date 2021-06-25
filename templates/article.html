@@ -3,6 +3,9 @@
 {% block title %} {{title}} {% endblock title %}
 
 {% block content %}
+    <div class="progress-container fixed-top">
+        <span class="progress-bar"></span>
+    </div>
     <div class="title">
         <h1>{{article.title}}</h1>
     </div>
@@ -13,9 +16,9 @@
     <img class = "img_art" src={{article.img.url}} alt="">
     <p>{{article.article_body | safe}}</p><br><br>
     <div class="like_box">
-        <p>Liked it? Give some brownie points maybe?</p> 
-        <img data-action="like" data-id = {{article.id}} class="like update-likes" src="/static/img/arrow-up.png">
-        <img data-action="dislike" data-id = {{article.id}} class="like update-likes" src="/static/img/arrow-down.png">
-        <p>{{article.likes}}</p>
+        <p class="like-text">Liked it? Give some melon points maybe?</p> 
+        <img data-action="like" data-id = {{article.id}} class="like update-likes" src="/static/img/melon-up.png">
+        <img data-action="dislike" data-id = {{article.id}} class="like update-likes" src="/static/img/melon-down.png">
+        <p class="likes-count">{{article.likes}}</p>
     </div>
 {% endblock content %}
