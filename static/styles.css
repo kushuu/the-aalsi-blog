@@ -612,22 +612,21 @@ footer {
   top: 0;
   right: 0;
   left: 0;
-  margin-top: 150px;
+  /* margin-top: 65px; */
   z-index: -1;
-  /* color: white; */
 }
 
 .progress-container {
   width: 100%;
-  background-color: transparent;
-  height: 5px;
-  display: block;
+  height: 8px;
+  background: rgb(214, 214, 214);
 }
+
+/* The progress bar (scroll indicator) */
 .progress-bar {
-  background-color: red;
+  height: 8px;
+  background: #11214ea9;
   width: 0%;
-  display: block;
-  height: inherit;
 }
 
 /* Responsive columns - one column layout (vertical) on small screens */

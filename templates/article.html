@@ -2,10 +2,13 @@
 
 {% block title %} {{title}} {% endblock title %}
 
+{% block for_article %}
+<div class="progress-container fixed-top">
+    <div class="progress-bar" id="myBar"></div>
+</div>
+{% endblock for_article %}
+
 {% block content %}
-    <div class="progress-container fixed-top">
-        <span class="progress-bar"></span>
-    </div>
     <div class="title">
         <h1>{{article.title}}</h1>
     </div>
