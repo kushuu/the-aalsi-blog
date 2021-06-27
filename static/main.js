@@ -86,7 +86,7 @@ const preloader = document.querySelector(".preloader");
 console.log(preloader)
 
 // const preloader = document.querySelector(".preloader");
-const preloaderDuration = 1500;
+const preloaderDuration = 1800;
 
 const hidePreloader = () => {
     setTimeout(() => {

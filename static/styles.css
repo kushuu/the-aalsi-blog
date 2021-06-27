@@ -287,6 +287,7 @@ img {
     margin-right: auto;
   }
   .img_art {
+    width: 100%;
     left: 0;
     right: 0;
   }
@@ -323,19 +324,6 @@ img {
   padding: 16px;
   text-align: center;
   background-color: #f1f1f1;
-}
-
-/* Responsive columns - one column layout (vertical) on small screens */
-@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-  }
-  .img_art {
-    left: 0;
-    right: 0;
-  }
 }
 
 .art_img {
@@ -640,4 +628,33 @@ footer {
   width: 0%;
   display: block;
   height: inherit;
+}
+
+/* Responsive columns - one column layout (vertical) on small screens */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .img_art {
+    width: 100%;
+    /* margin-right: -20px;
+    margin-left: -20px; */
+    /* left: 0;
+    right: 0; */
+    z-index : 0;
+  }
+  #main-box {
+    margin-left: -30px;
+    margin-right: -30px;
+  }
+  .container {
+    margin-right: -20px;
+    margin-left: -20px;
+  }
+
+  .cards {
+    margin: auto;
+  }
 }
