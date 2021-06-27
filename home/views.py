@@ -1,10 +1,15 @@
+from os import read
 from django.shortcuts import render, HttpResponse
 from django.http import JsonResponse
 from home.models import Contact, Articles
 from datetime import datetime
-import json
+import json, urllib, re, bs4
 
 # Create your views here.
+
+WPM = 200
+WORD_LENGTH = 5
+
 def index(request):
     articles = Articles.objects.all()[:5]
     ctx = {
@@ -83,12 +88,47 @@ def all_articles(request):
     }
     return render(request, 'articles.html', context=ctx)
 
+def extract_text(html):
+    soup = bs4.BeautifulSoup(html, 'html.parser')
+    texts = soup.findAll(text=True)
+    # print(texts)
+    return texts
+
+def is_visible(element):
+    if element.parent.name in ['style', 'script', '[document]', 'head', 'title']:
+        return False
+    elif isinstance(element, bs4.element.Comment):
+        return False
+    elif element.string == "\n":
+        return False
+    return True
+
+def filter_visible_text(page_texts):
+    return filter(is_visible, page_texts)
+
+def count_words_in_text(text_list, word_length):
+    total_words = 0
+    for current_text in text_list:
+        total_words += len(current_text)/word_length
+    return total_words
+
+def estimate_reading_time(html):
+    texts = extract_text(html)
+    filtered_text = filter_visible_text(texts)
+    total_words = count_words_in_text(filtered_text, WORD_LENGTH)
+    return total_words/WPM
+
 def article(request, title):
     article = Articles.objects.get(title = title)
     context = {
         'title' : title,
         'article' : article
     }
+    # print(article.article_body)
+    article.reading_time = round(estimate_reading_time(article.article_body))
+    if article.reading_time == 0:
+        article.reading_time = 1
+    article.save()
     return render(request, 'article.html', context)
 
 def update_like(request):

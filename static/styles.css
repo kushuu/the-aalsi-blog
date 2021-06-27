@@ -359,7 +359,13 @@ footer {
   margin-bottom: 40px;
 }
 
-.author {
+.signature {
+  display: flex;
+  margin-top: -15px;
+  text-align:unset;
+}
+
+.published {
   margin-top: -15px;
 }
 
@@ -627,6 +633,11 @@ footer {
   height: 8px;
   background: #11214ea9;
   width: 0%;
+}
+
+.reading_time {
+  /* margin-top: -18px; */
+  margin-left: 8px;
 }
 
 /* Responsive columns - one column layout (vertical) on small screens */

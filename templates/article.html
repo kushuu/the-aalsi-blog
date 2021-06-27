@@ -12,10 +12,11 @@
     <div class="title">
         <h1>{{article.title}}</h1>
     </div>
-    <div class="author">
-        <p>-{{article.author}} ( Published on : {{article.date_added}} )</p>
-        {% comment %} <p></p> {% endcomment %}
+    <div class="signature">
+        <p>-{{article.author}} </p>
+        <p class="reading_time">( {{article.reading_time}} min read )</p>
     </div>
+    <p class="published"> Published on : {{article.date_added}} </p>
     <img class = "img_art" src={{article.img.url}} alt="">
     <p>{{article.article_body | safe}}</p><br><br>
     <div class="like_box">
