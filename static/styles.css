@@ -360,14 +360,16 @@ footer {
 }
 
 .signature {
-  display: flex;
   margin-top: -15px;
   text-align:unset;
 }
 
-.published {
-  margin-top: -15px;
-}
+/* .published {
+  margin-bottom: 0px;
+  padding-left: 5%;
+  margin-left: 40px;
+  padding-right: 25%;
+} */
 
 .like {
   display: flex;
@@ -636,9 +638,10 @@ footer {
 }
 
 .reading_time {
-  /* margin-top: -18px; */
   margin-left: 8px;
+  margin-bottom: -10px;
 }
+
 
 /* Responsive columns - one column layout (vertical) on small screens */
 @media screen and (max-width: 600px) {

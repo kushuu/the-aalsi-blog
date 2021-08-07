@@ -11,7 +11,9 @@ WPM = 200
 WORD_LENGTH = 5
 
 def index(request):
-    articles = Articles.objects.all()[:5]
+    articles = Articles.objects.order_by('-date_added')
+    articles = articles[:5]
+    print(type(articles))
     ctx = {
         'articles' : articles,
         'title' : "Home"
