@@ -1,7 +1,7 @@
 from os import read
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import redirect, render, HttpResponse
 from django.http import JsonResponse
-from home.models import Contact, Articles
+from home.models import *
 from datetime import datetime
 import json, urllib, re, bs4
 
@@ -11,14 +11,21 @@ WPM = 200
 WORD_LENGTH = 5
 
 def index(request):
-    articles = Articles.objects.order_by('-date_added')
-    articles = articles[:5]
-    print(type(articles))
-    ctx = {
-        'articles' : articles,
-        'title' : "Home"
-    }
-    return render(request, 'index.html', context=ctx)
+    if request.method == 'POST':
+        email = request.POST['email_aalsi']
+        print(email)
+        subscriber, _ = Subscriber.objects.get_or_create(email=email)
+        subscriber.save()
+        
+        return redirect('home')
+    else:
+        articles = Articles.objects.order_by('-date_added')
+        articles = articles[:5]
+        ctx = {
+            'articles' : articles,
+            'title' : "Home"
+        }
+        return render(request, 'index.html', context=ctx)
 
 def contact(request):
     if request.method == 'POST':
