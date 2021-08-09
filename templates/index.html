@@ -35,7 +35,7 @@
 
 <br><br><br>
 
-<div class="container">
+<div class="container" id = "recent_arts">
     <h3>These are some of the recent articles that I've written, give them a read? :)</h3>
     <div class="row">
         {% for art in articles %}
@@ -49,6 +49,12 @@
     </div>
 </div>
 
-<h2><center>Newsletter here bitchesssss.</center></h2>
-
+<div class="newsletter">
+    <h2><center>Subscribe to my Newsletter.</center></h2>
+    <form action={% url 'home' %} method="POST">
+        {% csrf_token %}
+        <input id = "email_newsletter" type="text" name="email_aalsi" placeholder="Where do you want to receive notifs? :)">
+        <input id = "newsletter_sub" type="submit" value="Subbbb">
+    </form>
+</div>
 {% endblock content %}

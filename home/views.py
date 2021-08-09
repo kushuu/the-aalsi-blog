@@ -1,9 +1,15 @@
 from os import read
-from django.shortcuts import render, HttpResponse
+from django.db.models.fields import EmailField
+from django.shortcuts import redirect, render
 from django.http import JsonResponse
-from home.models import Contact, Articles
+
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+
+from home.models import *
+import TAB.settings as settings
 from datetime import datetime
-import json, urllib, re, bs4
+import json, bs4
 
 # Create your views here.
 
@@ -11,14 +17,38 @@ WPM = 200
 WORD_LENGTH = 5
 
 def index(request):
-    articles = Articles.objects.order_by('-date_added')
-    articles = articles[:5]
-    print(type(articles))
-    ctx = {
-        'articles' : articles,
-        'title' : "Home"
-    }
-    return render(request, 'index.html', context=ctx)
+    if request.method == 'POST':
+        email = request.POST['email_aalsi']
+        print(email)
+        subscriber, _ = Subscriber.objects.get_or_create(email=email)
+        subscriber.save()
+
+        #mailing stuff.
+        subject = "this is the subject."
+        email_from = settings.EMAIL_HOST_USER
+        template = render_to_string('email.html', {'email' : email})
+
+        user_email = EmailMessage(
+            subject,
+            template,
+            email_from,
+            [email],
+        )
+        user_email.fail_silently = False
+        user_email.send()
+
+        print("Email sent ^^")
+
+        
+        return redirect('home')
+    else:
+        articles = Articles.objects.order_by('-date_added')
+        articles = articles[:5]
+        ctx = {
+            'articles' : articles,
+            'title' : "Home"
+        }
+        return render(request, 'index.html', context=ctx)
 
 def contact(request):
     if request.method == 'POST':
