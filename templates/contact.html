@@ -52,7 +52,7 @@
           <span class="circle one"></span>
           <span class="circle two"></span>
           
-          <form action="contact.html" method="POST" autocomplete="off">
+          <form action= {% url 'contact' %} method="POST" autocomplete="off">
             <h3 class="title">Contact me</h3>
             {% csrf_token %}
             <div class="input-container">
