@@ -1,7 +1,8 @@
-from os import read
+import re
 from django.db.models.fields import EmailField
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
+from django.contrib import messages
 
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
@@ -19,7 +20,15 @@ WORD_LENGTH = 5
 def index(request):
     if request.method == 'POST':
         email = request.POST['email_aalsi']
-        print(email)
+        
+        # checking validity of email address.
+        regex_check = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b' 
+        valid = re.fullmatch(regex_check, email)
+
+        if(not valid):
+            messages.error(request, "Please enter a valid email address.")
+            return redirect('/')
+
         subscriber, _ = Subscriber.objects.get_or_create(email=email)
         subscriber.save()
 
@@ -36,9 +45,6 @@ def index(request):
         )
         user_email.fail_silently = False
         user_email.send()
-
-        print("Email sent ^^")
-
         
         return redirect('home')
     else:
@@ -113,7 +119,7 @@ def trivia(request):
     return render(request, 'articles.html', context=ctx)
 
 def all_articles(request):
-    articles = Articles.objects.all()
+    articles = Articles.objects.all().order_by('-date_added')
     ctx = {
         'articles' : articles,
         'title' : "All Posts"
