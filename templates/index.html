@@ -51,9 +51,14 @@
 
 <div class="newsletter">
     <h2><center>Subscribe to my Newsletter.</center></h2>
+    {% if messages %}
+        {% for mess in messages %}
+            <p>{{mess}}</p>
+        {% endfor %}
+    {% endif %}
     <form action={% url 'home' %} method="POST">
         {% csrf_token %}
-        <input id = "email_newsletter" type="email" name="email_aalsi" placeholder="Where do you want to receive notifs? :)">
+        <input id = "email_newsletter" type="email" name="email_aalsi" placeholder="Enter your email address.">
         <input id = "newsletter_sub" type="submit" value="Subbbb">
     </form>
 </div>

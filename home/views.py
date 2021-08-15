@@ -1,14 +1,12 @@
-import re
-from django.db.models.fields import EmailField
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
-from django.contrib import messages
-
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+from django.contrib import messages
 
 from home.models import *
 import TAB.settings as settings
+
 from datetime import datetime
 import json, bs4
 
@@ -20,20 +18,16 @@ WORD_LENGTH = 5
 def index(request):
     if request.method == 'POST':
         email = request.POST['email_aalsi']
-        
-        # checking validity of email address.
-        regex_check = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b' 
-        valid = re.fullmatch(regex_check, email)
-
-        if(not valid):
-            messages.error(request, "Please enter a valid email address.")
-            return redirect('/')
-
-        subscriber, _ = Subscriber.objects.get_or_create(email=email)
+        all_subscribers = Subscriber.objects.all()
+        if(all_subscribers.filter(email=email)):
+            messages.error(request, "User already subscribed!")
+            return redirect('home')
+            
+        subscriber, _ = Subscriber.objects.get_or_create(email=email, date_subed = django.utils.timezone.now())
         subscriber.save()
 
         #mailing stuff.
-        subject = "this is the subject."
+        subject = "Welcome my fren, welcome."
         email_from = settings.EMAIL_HOST_USER
         template = render_to_string('email.html', {'email' : email})
 
@@ -44,7 +38,7 @@ def index(request):
             [email],
         )
         user_email.fail_silently = False
-        user_email.send()
+        # user_email.send()
         
         return redirect('home')
     else:

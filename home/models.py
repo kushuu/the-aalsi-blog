@@ -31,6 +31,7 @@ class Articles(models.Model):
 
 class Subscriber(models.Model):
     email = models.EmailField(max_length=50)
+    date_subed = models.DateTimeField(default=django.utils.timezone.now, blank=True)
 
     def __str__(self):
         return self.email
