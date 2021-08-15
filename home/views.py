@@ -38,7 +38,7 @@ def index(request):
             [email],
         )
         user_email.fail_silently = False
-        # user_email.send()
+        user_email.send()
         
         return redirect('home')
     else:
