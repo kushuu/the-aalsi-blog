@@ -39,7 +39,11 @@ def index(request):
         )
         user_email.fail_silently = False
         user_email.send()
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 9ce4dda042694e4bc335ea2c1cfe38300760ec71
         return redirect('home')
     else:
         articles = Articles.objects.order_by('-date_added')
