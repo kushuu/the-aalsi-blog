@@ -22,7 +22,7 @@ def index(request):
         if(all_subscribers.filter(email=email)):
             messages.error(request, "User already subscribed!")
             return redirect('home')
-            
+
         subscriber, _ = Subscriber.objects.get_or_create(email=email, date_subed = django.utils.timezone.now())
         subscriber.save()
 
@@ -38,8 +38,8 @@ def index(request):
             [email],
         )
         user_email.fail_silently = False
-        # user_email.send()
-        
+        user_email.send()
+
         return redirect('home')
     else:
         articles = Articles.objects.order_by('-date_added')
@@ -67,7 +67,7 @@ def cp(request):
     for art in articles:
         if "CP" in art.tags.split(','):
             cp_articles.append(art)
-    
+
     ctx = {
         'articles' : cp_articles,
         'title' : "Competitive Programming"
@@ -80,7 +80,7 @@ def cyber(request):
     for art in articles:
         if "CYBER" in art.tags.split(','):
             cp_articles.append(art)
-    
+
     ctx = {
         'articles' : cp_articles,
         'title' : "Cyber Security"
@@ -93,7 +93,7 @@ def ml(request):
     for art in articles:
         if "ML" in art.tags.split(','):
             cp_articles.append(art)
-    
+
     ctx = {
         'articles' : cp_articles,
         'title' : "Machine Learning"
