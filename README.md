@@ -1,6 +1,6 @@
 # T.A.B.
 
-## A simple django based blog site to host Jiggly's and my articles ^_^
+## A simple django based blog site to host my articles ^_^
 
 ## Steps to run this project
 - Install all the required python libraries (install python first if you haven't).
