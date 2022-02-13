@@ -106,3 +106,11 @@ function myFunction() {
   var scrolled = (winScroll / height) * 100;
   document.getElementById("myBar").style.width = scrolled + "%";
 }
+
+// for toggling night mode.
+type="text/javascript">
+document.querySelector('.checkbox').addEventListener('change',()=>{
+    document.querySelectorAll('.night-mode-available').forEach(ele=>{
+    ele.classList.toggle('night');
+    })
+});
