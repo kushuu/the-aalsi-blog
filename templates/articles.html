@@ -9,7 +9,7 @@
     {% for art in articles %}
         <li class="cards__item">
             <a href={% url 'article' art.title %}>
-                <div class="card">
+                <div class="card night-mode-available">
                     <img class="card__image" src={{art.img.url}}>
                     <div class="card__content">
                         <p class="card_title">

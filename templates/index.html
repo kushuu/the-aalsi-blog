@@ -39,7 +39,7 @@
     <h3>These are some of the recent articles that I've written, give them a read? :)</h3>
     <div class="row">
         {% for art in articles %}
-        <a class="card-row" href= {% url 'article' art.title %}>
+        <a class="card-row night-mode-available" href= {% url 'article' art.title %}>
             <div>
                 <img src= {{art.img.url}}>
                 <p class="card-text">{{art.title}}</p>
@@ -49,7 +49,7 @@
     </div>
 </div>
 
-<div class="newsletter">
+<div class="newsletter night-mode-available">
     <h2><center>Subscribe to my Newsletter.</center></h2>
     {% if messages %}
         {% for mess in messages %}
@@ -59,7 +59,7 @@
     <form action={% url 'home' %} method="POST">
         {% csrf_token %}
         <input id = "email_newsletter" type="email" name="email_aalsi" placeholder="Enter your email address.">
-        <input id = "newsletter_sub" type="submit" value="Subbbb">
+        <input class = "newsletter_sub night-mode-available" type="submit" value="Subbbb">
     </form>
 </div>
 {% endblock content %}

@@ -66,6 +66,21 @@ ul {
 
 a {
   text-decoration: none;
+  color: #070D1F;
+}
+
+a.night {
+  color: rgb(255, 254, 194);
+}
+
+.index-every {
+  background-color: white;
+  color: black;
+}
+
+.index-every.night {
+  background-color: rgba(6, 5, 15, 0.911);
+  color: white;
 }
 
 img {
@@ -78,7 +93,7 @@ img {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 100%;
-      grid-template-columns: 100%;
+  grid-template-columns: 100%;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
 }
@@ -342,6 +357,11 @@ img {
   padding: 16px;
   text-align: center;
   background-color: #f1f1f1;
+}
+
+.card.night {
+  background-color: rgba(17, 16, 34, 0.911);
+  color: white;
 }
 
 .art_img {
@@ -636,6 +656,12 @@ footer {
   text-align: center;
 }
 
+.newsletter.night {
+  background-color: rgba(17, 16, 34, 0.911);
+  color: white;
+  border-color: white;
+}
+
 #email_newsletter {
   border: #070D1F;
   border-style: solid;
@@ -648,11 +674,21 @@ footer {
   font-family: var(--body-font);
 }
 
-#newsletter_sub {
+.newsletter_sub {
   font-family: var(--body-font);
   background-color: var(--dark-color);
   padding: 10px 32px;
   color :rgb(214, 214, 214);
+  border-radius: 10px;
+  margin-left: 30px;
+  font-size: 18px;
+}
+
+.newsletter_sub.night {
+  font-family: var(--body-font);
+  background-color: rgb(255, 254, 194);
+  padding: 10px 32px;
+  color :rgba(17, 16, 34, 0.911);
   border-radius: 10px;
   margin-left: 30px;
   font-size: 18px;
