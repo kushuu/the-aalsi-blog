@@ -199,15 +199,20 @@ def estimate_reading_time(html):
 def article(request, title):
     # article = Articles.objects.get(title=title)
     articles_collection = DB_HANDLE['articles']
-    article = list(articles_collection.find({"title" : title}))[0]
+    article = articles_collection.find_one({"title" : title})
     
     context = {
         'title': title,
         'article': article
     }
-    # print(article.article_body)
-    article['reading_time'] = round(estimate_reading_time(article['article_body']))
-    if article['reading_time'] == 0:
+    
+    read_time = round(estimate_reading_time(article['article_body']))
+    if read_time == 0:
+        articles_collection.update_one(
+            {"title" : title},
+            {"$set": { 'reading_time': read_time } }
+        )
+    else:
         articles_collection.update_one(
             {"title" : title},
             {"$set": { 'reading_time': 1 } }
