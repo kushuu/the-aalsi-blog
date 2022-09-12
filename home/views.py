@@ -1,20 +1,29 @@
+from utils import get_db_handle
+import os
+import bs4
+import json
+from datetime import datetime
+import TAB.settings as settings
+from home.models import *
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from django.core.mail import EmailMessage, send_mail
 from django.template.loader import render_to_string
 from django.contrib import messages
+from mongoengine import Document, fields
+from dotenv import load_dotenv
+load_dotenv()
 
-from home.models import *
-import TAB.settings as settings
-
-from datetime import datetime
-import json
-import bs4
-
-# Create your views here.
-
+MONGO_PASS = os.getenv('mongo_pass')
 WPM = 200
 WORD_LENGTH = 5
+DB_HANDLE, CLIENT = get_db_handle(
+    'tab-mongo', 
+    f'mongodb+srv://aalsisendsmail:{MONGO_PASS}@cluster0.9docwgy.mongodb.net/?retryWrites=true&w=majority',
+    27017, 
+    'aalsisendsmail', 
+    MONGO_PASS
+)
 
 
 def index(request):
@@ -44,7 +53,8 @@ def index(request):
 
         return redirect('home')
     else:
-        articles = Articles.objects.order_by('-date_added')
+        articles_collection = DB_HANDLE['articles']
+        articles = list(articles_collection.find({}))
         articles = articles[:5]
         ctx = {
             'articles': articles,
@@ -81,10 +91,11 @@ def contact(request):
 
 
 def cp(request):
-    articles = Articles.objects.all()
+    articles_collection = DB_HANDLE['articles']
+    articles = list(articles_collection.find({}))
     cp_articles = []
     for art in articles:
-        if "CP" in art.tags.split(','):
+        if "CP" in art['tags'].split(','):
             cp_articles.append(art)
 
     ctx = {
@@ -95,48 +106,54 @@ def cp(request):
 
 
 def cyber(request):
-    articles = Articles.objects.all()
-    cp_articles = []
+    articles_collection = DB_HANDLE['articles']
+    articles = list(articles_collection.find({}))
+    cyebr_articles = []
     for art in articles:
-        if "CYBER" in art.tags.split(','):
-            cp_articles.append(art)
+        if "CYBER" in art['tags'].split(','):
+            cyebr_articles.append(art)
 
     ctx = {
-        'articles': cp_articles,
+        'articles': cyebr_articles,
         'title': "Cyber Security"
     }
     return render(request, 'articles.html', context=ctx)
 
 
 def ml(request):
-    articles = Articles.objects.all()
-    cp_articles = []
+    articles_collection = DB_HANDLE['articles']
+    articles = list(articles_collection.find({}))
+    ml_articles = []
     for art in articles:
-        if "ML" in art.tags.split(','):
-            cp_articles.append(art)
+        if "ML" in art['tags'].split(','):
+            ml_articles.append(art)
 
     ctx = {
-        'articles': cp_articles,
+        'articles': ml_articles,
         'title': "Machine Learning"
     }
     return render(request, 'articles.html', context=ctx)
 
 
 def trivia(request):
-    articles = Articles.objects.all()
-    cp_articles = []
+    articles_collection = DB_HANDLE['articles']
+    articles = list(articles_collection.find({}))
+    trivia_articles = []
     for art in articles:
-        if "TRIVIA" in art.tags.split(','):
-            cp_articles.append(art)
+        if "TRIVIA" in art['tags'].split(','):
+            trivia_articles.append(art)
     ctx = {
-        'articles': cp_articles,
+        'articles': trivia_articles,
         'title': "Trivia :)"
     }
     return render(request, 'articles.html', context=ctx)
 
 
 def all_articles(request):
-    articles = Articles.objects.all().order_by('-date_added')
+    # articles = Articles.objects.all().order_by('-date_added')
+    
+    articles_collection = DB_HANDLE['articles']
+    articles = list(articles_collection.find({}))
     ctx = {
         'articles': articles,
         'title': "All Posts"
@@ -180,16 +197,22 @@ def estimate_reading_time(html):
 
 
 def article(request, title):
-    article = Articles.objects.get(title=title)
+    # article = Articles.objects.get(title=title)
+    articles_collection = DB_HANDLE['articles']
+    article = list(articles_collection.find({"title" : title}))[0]
+    
     context = {
         'title': title,
         'article': article
     }
     # print(article.article_body)
-    article.reading_time = round(estimate_reading_time(article.article_body))
-    if article.reading_time == 0:
-        article.reading_time = 1
-    article.save()
+    article['reading_time'] = round(estimate_reading_time(article['article_body']))
+    if article['reading_time'] == 0:
+        articles_collection.update_one(
+            {"title" : title},
+            {"$set": { 'reading_time': 1 } }
+        )
+    # article.save()
     return render(request, 'article.html', context)
 
 
