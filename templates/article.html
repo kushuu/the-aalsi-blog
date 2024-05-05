@@ -16,11 +16,10 @@
         </span>
     </div>
     <div class="signature">
-        <p>-{{article.author}} </p>
         <p class="published"> Published on : {{article.date_added}} </p>
     </div>
-        
-    <img class = "img_art" src={{article.img.url}} alt="">
+    
+    <img class = "img_art" src="data:image/png;base64,{{article.img}}">
     <p>{{article.article_body | safe}}</p><br><br>
     <div class="like_box">
         <p class="like-text">Liked it? Give some melon points maybe?</p> 

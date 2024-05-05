@@ -1,20 +1,32 @@
-from django.shortcuts import redirect, render
-from django.http import JsonResponse
-from django.core.mail import EmailMessage, send_mail
-from django.template.loader import render_to_string
-from django.contrib import messages
+"""
+TODO:
+>>> make an endpoint to uplaod new atticles.
+>>> do something with the like/dislike functionality
+>>> make a 404 page
+"""
 
-from home.models import *
-import TAB.settings as settings
-
-from datetime import datetime
 import json
-import bs4
+import os
+from datetime import datetime
 
-# Create your views here.
+import bs4
+import pymongo as pm
+from bson import ObjectId
+from django.contrib import messages
+from django.core.mail import EmailMessage, send_mail
+from django.http import JsonResponse
+from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
+
+import TAB.settings as settings
 
 WPM = 200
 WORD_LENGTH = 5
+
+MONGO_CONNECTION_STRING = os.getenv("MONGO_CONNECTION_STRING")
+client = pm.MongoClient(MONGO_CONNECTION_STRING)
+DB = client["blog"]
+POSTS_COLLECTION = DB["posts"]
 
 
 def index(request):
@@ -81,10 +93,14 @@ def contact(request):
 
 
 def cp(request):
-    articles = Articles.objects.all()
+    articles = POSTS_COLLECTION.find()
+    articles = [a for a in articles]
+    for article in articles:
+        article['date_added'] = datetime.fromtimestamp(
+            article['date_added'].time)
     cp_articles = []
     for art in articles:
-        if "CP" in art.tags.split(','):
+        if "CP" in art['tags']:
             cp_articles.append(art)
 
     ctx = {
@@ -95,48 +111,66 @@ def cp(request):
 
 
 def cyber(request):
-    articles = Articles.objects.all()
-    cp_articles = []
+    articles = POSTS_COLLECTION.find()
+    articles = [a for a in articles]
+    for article in articles:
+        article['date_added'] = datetime.fromtimestamp(
+            article['date_added'].time)
+    cyber_articles = []
     for art in articles:
-        if "CYBER" in art.tags.split(','):
-            cp_articles.append(art)
+        if "CYBER" in art['tags']:
+            cyber_articles.append(art)
 
     ctx = {
-        'articles': cp_articles,
+        'articles': cyber_articles,
         'title': "Cyber Security"
     }
     return render(request, 'articles.html', context=ctx)
 
 
 def ml(request):
-    articles = Articles.objects.all()
-    cp_articles = []
+    articles = POSTS_COLLECTION.find()
+    articles = [a for a in articles]
+    for article in articles:
+        article['date_added'] = datetime.fromtimestamp(
+            article['date_added'].time)
+    ml_articles = []
     for art in articles:
-        if "ML" in art.tags.split(','):
-            cp_articles.append(art)
+        if "ML" in art['tags']:
+            ml_articles.append(art)
 
     ctx = {
-        'articles': cp_articles,
+        'articles': ml_articles,
         'title': "Machine Learning"
     }
     return render(request, 'articles.html', context=ctx)
 
 
 def trivia(request):
-    articles = Articles.objects.all()
-    cp_articles = []
+    # articles = Articles.objects.all()
+    articles = POSTS_COLLECTION.find()
+    articles = [a for a in articles]
+    for article in articles:
+        article['date_added'] = datetime.fromtimestamp(
+            article['date_added'].time)
+
+    trivia_articles = []
     for art in articles:
-        if "TRIVIA" in art.tags.split(','):
-            cp_articles.append(art)
+        if "TRIVIA" in art['tags']:
+            trivia_articles.append(art)
     ctx = {
-        'articles': cp_articles,
+        'articles': trivia_articles,
         'title': "Trivia :)"
     }
     return render(request, 'articles.html', context=ctx)
 
 
 def all_articles(request):
-    articles = Articles.objects.all().order_by('-date_added')
+    articles = POSTS_COLLECTION.find()
+    articles = [a for a in articles]
+
+    for a in articles:
+        a['date_added'] = datetime.fromtimestamp(a['date_added'].time)
     ctx = {
         'articles': articles,
         'title': "All Posts"
@@ -180,16 +214,20 @@ def estimate_reading_time(html):
 
 
 def article(request, title):
-    article = Articles.objects.get(title=title)
+    # article = Articles.objects.get(title=title)
+    article = POSTS_COLLECTION.find_one({'title': title})
+    article['date_added'] = datetime.fromtimestamp(article['date_added'].time)
     context = {
         'title': title,
         'article': article
     }
     # print(article.article_body)
-    article.reading_time = round(estimate_reading_time(article.article_body))
-    if article.reading_time == 0:
-        article.reading_time = 1
-    article.save()
+    article['reading_time'] = round(
+        estimate_reading_time(article['article_body']))
+    if article['reading_time'] == 0:
+        article['reading_time'] = 1
+    article['id'] = article['_id']
+    # article.save()
     return render(request, 'article.html', context)
 
 
@@ -198,11 +236,16 @@ def update_like(request):
     # print(data)
     articleId = data['articleId']
     action = data['action']
-    article, created = Articles.objects.get_or_create(id=articleId)
+    # article, created = Articles.objects.get_or_create(id=articleId
+    article = POSTS_COLLECTION.find_one({'_id': ObjectId(articleId)})
+
     if action == "like":
-        article.likes += 1
+        article['likes'] += 1
     else:
-        article.likes -= 1
-        article.likes = max(0, article.likes)
-    article.save()
+        article['likes'] -= 1
+        article['likes'] = max(0, article['likes'])
+    POSTS_COLLECTION.update_one(
+        {'_id': ObjectId(articleId)},
+        {"$set": {"likes": article['likes']}}
+    )
     return JsonResponse("Item added :)", safe=False)

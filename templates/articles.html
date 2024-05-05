@@ -10,7 +10,7 @@
         <li class="cards__item">
             <a href={% url 'article' art.title %}>
                 <div class="card night-mode-available">
-                    <img class="card__image" src={{art.img.url}}>
+                    <img class="card__image" src="data:image/png;base64,{{art.img}}">
                     <div class="card__content">
                         <p class="card_title">
                             {{art.title}}
